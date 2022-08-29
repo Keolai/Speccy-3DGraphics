@@ -142,3 +142,40 @@ inc_y:
     inc c
     ld b, $01
     jp load_picture
+
+;;hl = b * c
+slow_mult:
+    ld hl,0
+    ld a,b
+    or a
+    ret z
+    ld d,0
+    ld e,c
+slow_mult_loop:
+    add hl,de
+    djnz slow_mult_loop
+    ret 
+
+;L is (0-255), A is (0-63), BC is result
+fast_mult:
+    or a, #40
+    ld h,a
+    ld c,(hl)
+    add a,#40
+    ld h,a
+    ld b,(hl)
+    ret
+
+;;bc = hl/e
+div:
+    ld a,e
+    or a
+    ret z
+    ld bc,-1
+    ld d,a
+    ld d,0
+div_loop:
+    sbc hl,de
+    inc bc
+    jr nc, div_loop
+    ret
