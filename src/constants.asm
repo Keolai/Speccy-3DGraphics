@@ -4,6 +4,6 @@ bgColor = %00000010
 wallColor = %00010000
 
 ;; filler locations CHANGE
-rotationDegree = %1000
-coordinateX = %1001
-coordinateY = %1002
+rotationDegree = #c000
+coordinateX = #c001
+coordinateY = #c002
