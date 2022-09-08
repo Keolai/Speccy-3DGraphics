@@ -23,7 +23,7 @@ sX2 = adrStart + #09
 Mult = adrStart + #0a
 
 
-;; a1 = b, a2 = c, a3 = d, a4 = d h = x, l = y
+;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 loadMatrix:
 push a 
 ld a, b
