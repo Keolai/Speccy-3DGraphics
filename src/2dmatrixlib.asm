@@ -1,23 +1,26 @@
 include keolib.asm
 
+;; start of where to put the data ;;
+adrStart = #d000
+
 ;; constants ;;
-a1 = #d000
-a2 = #d001
-a3 = #d002
-a4 = #d003
+a1 = adrStart
+a2 = adrStart + #01
+a3 = adrStart + #02
+a4 = adrStart + #03
 ;; coordinates ;;
-cX = #d004
-cY = #d005
+cX = adrStart + #04
+cY = adrStart + #05
 ;; preserve coordinates;;
-pX = #d006
-pY = #d007
+pX = adrStart + #06
+pY = adrStart + #07
 
 ;; solutions ;;
-sX1 = #d00a
-sX2 = #d00b
+sX1 = adrStart + #08
+sX2 = adrStart + #09
 
 ;; constants needed ;;
-Mult = #d010
+Mult = adrStart + #0a
 
 
 ;; a1 = b, a2 = c, a3 = d, a4 = d h = x, l = y
