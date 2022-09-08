@@ -179,3 +179,25 @@ div_loop:
     inc bc
     jr nc, div_loop
     ret
+
+;; modulo on a using b
+modulo:
+    push a
+    jp z, equal
+    jp m, S_set
+    jp p, S_Nset
+    ret
+
+equal:
+    ld a, $00
+    ret
+    
+S_set:
+    ret po
+    sub a,b
+    jp modulo
+    
+S_Nset:
+    ret pe
+    sub a,b
+    jp modulo
