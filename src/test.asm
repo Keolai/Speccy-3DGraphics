@@ -1,5 +1,5 @@
-;; meant to test compilation ;;
 DEVICE ZXSPECTRUM128
+;; meant to test compilation ;;
     
     include twodmatrixlib.asm
     include keolib.asm

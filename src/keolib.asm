@@ -182,10 +182,11 @@ div_loop:
 
 ;; modulo on a using b
 modulo:
-    push a
+    push af
     jp z, equal
     jp m, S_set
     jp p, S_Nset
+    pop af
     ret
 
 equal:

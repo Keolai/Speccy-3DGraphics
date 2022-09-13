@@ -1,31 +1,31 @@
-include keolib.asm
+    include keolib.asm
 
 ;; start of where to put the data ;;
-adrStart = #d000
+    adrStart = #d000
 
 ;; constants ;;
-a1 = adrStart
-a2 = adrStart + #01
-a3 = adrStart + #02
-a4 = adrStart + #03
+    a1 = adrStart
+    a2 = adrStart + #01
+    a3 = adrStart + #02
+    a4 = adrStart + #03
 ;; coordinates ;;
-cX = adrStart + #04
-cY = adrStart + #05
+    cX = adrStart + #04
+    cY = adrStart + #05
 ;; preserve coordinates;;
-pX = adrStart + #06
-pY = adrStart + #07
+    pX = adrStart + #06
+    pY = adrStart + #07
 
 ;; solutions ;;
-sX1 = adrStart + #08
-sX2 = adrStart + #09
+    sX1 = adrStart + #08
+    sX2 = adrStart + #09
 
 ;; constants needed ;;
-Mult = adrStart + #0a
+    Mult = adrStart + #0a
 
 
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 loadMatrix:
-    push a 
+    push af
     ld a, b
     ld a1, a
     ld a, c
@@ -40,7 +40,7 @@ loadMatrix:
     ld a, l
     ld cY, a
     ld pY, a
-    pop a
+    pop af
     ret
 
 solveMatrix:
@@ -51,7 +51,7 @@ solveMatrix:
 ;;bc = hl/e
 ;;hl = b * c
 getMultiplier:
-    push a
+    push af
     ld a, a1
     ld e,a
     ld hl, a3
@@ -73,28 +73,28 @@ getMultiplier:
     ld a, cY
     sub a, l
     ld cY, a
-    pop a
+    pop af
     ret
 
 
 getSolutions:
-    push a
+    push af
     ld a,cY
     ld hl,a
     ld a, a4
     ld e,a
     call div
     ld a, c
-    ld sX2
+    ;;ld a, sX2
     ld b, a2
     call slow_mult
     ld a, cX
-    sub a,hl
+    sub a, hl
     ld hl,a
     ld a,a1
     ld e,a
     call div
     ld a,c
     ld sX1,a
-    pop a
+    pop af
     ret
