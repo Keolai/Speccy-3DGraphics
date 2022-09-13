@@ -1,29 +1,31 @@
     include keolib.asm
 
+    DEVICE ZXSPECTRUM128
 ;; start of where to put the data ;;
-    adrStart = #d000
+adrStart EQU #d000
 
 ;; constants ;;
-    a1 = adrStart
-    a2 = adrStart + #01
-    a3 = adrStart + #02
-    a4 = adrStart + #03
+a1 EQU adrStart
+a2 EQU adrStart + #01
+a3 EQU adrStart + #02
+a4 EQU adrStart + #03
 ;; coordinates ;;
-    cX = adrStart + #04
-    cY = adrStart + #05
+cX EQU adrStart + #04
+cY EQU adrStart + #05
 ;; preserve coordinates;;
-    pX = adrStart + #06
-    pY = adrStart + #07
+pX EQU adrStart + #06
+pY EQU adrStart + #07
 
 ;; solutions ;;
-    sX1 = adrStart + #08
-    sX2 = adrStart + #09
+sX1 EQU adrStart + #08
+sX2 EQU adrStart + #09
 
 ;; constants needed ;;
-    Mult = adrStart + #0a
+Mult EQU adrStart + #0a
 
 
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
+;;change ALL ld label, a to ld hl, label, ld (hl), a
 loadMatrix:
     push af
     ld a, b
