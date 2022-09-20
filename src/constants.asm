@@ -1,9 +1,9 @@
 ;;constants for engine 
 
-bgColor = %00000010
-wallColor = %00010000
+bgColor EQU %00000010
+wallColor EQU %00010000
 
 ;; filler locations CHANGE
-rotationDegree = #c000
-coordinateX = #c001
-coordinateY = #c002
+rotationDegree EQU #c000
+coordinateX EQU #c001
+coordinateY EQU #c002
