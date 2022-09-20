@@ -2,7 +2,7 @@ DEVICE ZXSPECTRUM128
 ;; meant to test compilation ;;
     
     include twodmatrixlib.asm
-    include keolib.asm
+   // include keolib.asm
 
     org $8000
 
