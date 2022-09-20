@@ -29,19 +29,27 @@ Mult EQU adrStart + #0a
 loadMatrix:
     push af
     ld a, b
-    ld a1, a
+    ld hl,a1
+    ld (hl), a
     ld a, c
-    ld a2, a
+    ld hl,a2
+    ld (hl), a
     ld a, d
-    ld a3, a
+    ld hl,a3
+    ld (hl), a
     ld a, e
-    ld a4, a
+    ld hl,a4
+    ld (hl), a
     ld a,h
-    ld cX, a
-    ld pX, a
+    ld hl,cX
+    ld (hl), a
+    ld hl,pX
+    ld (hl), a
     ld a, l
-    ld cY, a
-    ld pY, a
+    ld hl,cY
+    ld (hl), a
+    ld hl,pY
+    ld (hl),a
     pop af
     ret
 
@@ -59,14 +67,16 @@ getMultiplier:
     ld hl, a3
     call div
     ld a,c
-    ld Mult,a
+    ld hl,Mult
+    ld (hl),a
     ld b, a
     ld a, a2
     ld c, a
     call slow_mult
     ld a, a4
     sub a, l        ;;need to handle possible negatives
-    ld a4, a
+    ld hl,a4
+    ld (hl), a
     ld a, cX
     ld b, a
     ld a, Mult
@@ -74,29 +84,36 @@ getMultiplier:
     call slow_mult
     ld a, cY
     sub a, l
-    ld cY, a
+    ld hl,cY
+    ld (hl), a
     pop af
     ret
 
-
+;; fix this
 getSolutions:
     push af
     ld a,cY
-    ld hl,a
+    ld (hl),a
     ld a, a4
     ld e,a
     call div
     ld a, c
-    ;;ld a, sX2
+    ld hl,sX2
+    ld (hl),a
     ld b, a2
     call slow_mult
-    ld a, cX
-    sub a, hl
-    ld hl,a
-    ld a,a1
+    push hl
+    ld hl,cX
+    ld a,(hl)
+    pop hl
+    sub l       ;;fix
+    ld (hl),a
+    ld hl,a1
+    ld a,(hl)
     ld e,a
     call div
     ld a,c
-    ld sX1,a
+    ld hl,sX1
+    ld (hl),a
     pop af
     ret
