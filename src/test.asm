@@ -26,16 +26,16 @@ start:
     jp loop
     ret
 
-checkLoad:
-    ld hl,$d000
-    ld a,(hl)
-    ld b,a
-    ld hl,$d001
-    ld a,(hl)
-    jp loop
-    ret
+;checkLoad:
+;    ld hl,$d000
+;    ld a,(hl)
+;    ld b,a
+;    ld hl,$d001
+;    ld a,(hl)
+ ;   jp loop
+ ;   ret
 loop:
-   ;nop
+    nop
     jp loop
 
     SAVESNA"test.sna", start
