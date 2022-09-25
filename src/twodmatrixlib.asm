@@ -5,8 +5,8 @@
 adrStart EQU #d000
 
 ;; constants ;;
-a1 EQU adrStart
-a2 EQU adrStart + #01
+a1 EQU #d000
+a2 EQU #d001
 a3 EQU adrStart + #02
 a4 EQU adrStart + #03
 ;; coordinates ;;
@@ -29,26 +29,28 @@ Mult EQU adrStart + #0a
 loadMatrix:
     push af
     ld a, b
-    ld hl,a1
+   ; ld h,$d0
+    ld hl,#d000
     ld (hl), a
     ld a, c
-    ld hl,a2
+    ld hl,#d001
     ld (hl), a
+    ret     ;temp
     ld a, d
-    ld hl,a3
+    ld l,a3
     ld (hl), a
     ld a, e
-    ld hl,a4
+    ld l,a4
     ld (hl), a
     ld a,h
-    ld hl,cX
+    ld l,cX
     ld (hl), a
-    ld hl,pX
+    ld l,pX
     ld (hl), a
     ld a, l
-    ld hl,cY
+    ld l,cY
     ld (hl), a
-    ld hl,pY
+    ld l,pY
     ld (hl),a
     pop af
     ret
@@ -62,20 +64,21 @@ solveMatrix:
 ;;hl = b * c
 getMultiplier:
     push af
-    ld a, a1
+    ld a, #d000
     ld e,a
-    ld hl, a3
+    ld h,$d0
+    ld l, a3
     call div
     ld a,c
-    ld hl,Mult
+    ld l,Mult
     ld (hl),a
     ld b, a
-    ld a, a2
+    ld a, #d001
     ld c, a
     call slow_mult
     ld a, a4
     sub a, l        ;;need to handle possible negatives
-    ld hl,a4
+    ld l,a4
     ld (hl), a
     ld a, cX
     ld b, a
@@ -84,7 +87,7 @@ getMultiplier:
     call slow_mult
     ld a, cY
     sub a, l
-    ld hl,cY
+    ld l,cY
     ld (hl), a
     pop af
     ret
@@ -98,22 +101,26 @@ getSolutions:
     ld e,a
     call div
     ld a, c
-    ld hl,sX2
+    ld h,$d0
+    ld l,sX2
     ld (hl),a
-    ld b, a2
+    ld b, #d001
     call slow_mult
     push hl
-    ld hl,cX
+    ld l,cX
+    ld h,$d0
     ld a,(hl)
     pop hl
     sub l       ;;fix
     ld (hl),a
-    ld hl,a1
+    ld h,$d0
+    ld hl,#d000
     ld a,(hl)
     ld e,a
     call div
     ld a,c
-    ld hl,sX1
+    ld h,$d0
+    ld l,sX1
     ld (hl),a
     pop af
     ret
