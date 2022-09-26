@@ -1,42 +1,44 @@
     include keolib.asm
 
-    DEVICE ZXSPECTRUM128
+    ;DEVICE ZXSPECTRUM128
 ;; start of where to put the data ;;
 
 
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 ;;change ALL ld label, a to ld hl, label, ld (hl), a
+multiplier EQU $d000
+
 loadMatrix:
     push af
     push bc
     push de
     push hl
     exx             ;move contents of matrix into shadow registers
-    pop af
-    pop bc
-    pop de
     pop hl
+    pop de
+    pop bc
+    pop af
     ret
     
 
 solveMatrix:
     call getMultiplier
     ;call getSecondSolNum
-   ; call getSolutions
+    ;call getSolutions
     ret
 
 ;;bc = hl/e
 ;;hl = b * c
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 getMultiplier:
-    push af
-    ld l,d
+    ;push af
+    ld h,d
     ld e,b
     call div
     ld hl,multiplier  ;load multiplier address
     ld a,c             ;load mutliple into a
     ld (hl),a           ;store at address
-   ; pop af
+    ;pop af
     ret 
 getSecondSolNum:
     ld hl,multiplier
@@ -54,6 +56,5 @@ getSecondSolNum:
     ld (hl),a       ;store in numerator     
     ret
 
-multiplier: db #00 
-numerator: db #00
-denominator: db #00
+numerator: db $00
+denominator: db $00
