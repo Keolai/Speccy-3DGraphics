@@ -56,8 +56,12 @@ getSecondSolNum:
     pop hl
     ld a,l          ;move Y into a
     sub b           ;now a = Y-MX
+    call c,negativeHandler
     ld hl,numerator
-    ld (hl),a       ;store in numerator    ;NEED to HANDLE NEGATIVES 
+    ld (hl),a       ;store in numerator    ;NEED to HANDLE NEGATIVES for now just reversed
+    ret
+negativeHandler:
+    xor $ff
     ret
 
 numerator: db $00
