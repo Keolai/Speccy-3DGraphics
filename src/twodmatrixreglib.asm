@@ -56,7 +56,7 @@ getSecondSolNum:
     pop hl
     ld a,l          ;move Y into a
     sub b           ;now a = Y-MX
-    call c,negativeHandler
+    call c,negativeHandler  ;check flag
     ld hl,numerator
     ld (hl),a       ;store in numerator    ;NEED to HANDLE NEGATIVES for now just reversed
     ret

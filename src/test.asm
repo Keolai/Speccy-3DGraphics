@@ -6,7 +6,7 @@
 
 start:  
     ld hl,$ff58
-    ld sp,hl
+    ld sp,hl            ;THIS IS NEEDED !
     ld b,$01
     ld c,$02
     ld d,$01
