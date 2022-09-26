@@ -16,7 +16,6 @@ start:
     ; answers should both be 1
     ; multiplier should be 2
     call loadMatrix
-   ; call checkLoad
     call solveMatrix
     ;ld hl,$d008
     ;ld a,(hl)
@@ -26,14 +25,6 @@ start:
     jp loop
     ret
 
-;checkLoad:
-;    ld hl,$d000
-;    ld a,(hl)
-;    ld b,a
-;    ld hl,$d001
-;    ld a,(hl)
- ;   jp loop
- ;   ret
 loop:
     nop
     jp loop

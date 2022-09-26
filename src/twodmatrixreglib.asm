@@ -31,14 +31,12 @@ solveMatrix:
 ;;hl = b * c
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 getMultiplier:
-   ; push af
     ld h,d
     ld e,b
     call div
     ld hl,multiplier  ;load multiplier address
     ld a,c             ;load mutliple into a (should be stored in c)
     ld (hl),a           ;store at address
-   ; pop af
     ret 
 getSecondSolNum:
     ld hl,multiplier
@@ -56,7 +54,7 @@ getSecondSolNum:
     pop hl
     ld a,l          ;move Y into a
     sub b           ;now a = Y-MX
-    call c,negativeHandler  ;check flag
+    call c, negativeHandler  ;gets absolute value of negative if negative was created
     ld hl,numerator
     ld (hl),a       ;store in numerator    ;NEED to HANDLE NEGATIVES for now just reversed
     ret
