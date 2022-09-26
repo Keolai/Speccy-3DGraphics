@@ -23,7 +23,7 @@ loadMatrix:
 
 solveMatrix:
     call getMultiplier
-    ;call getSecondSolNum
+    call getSecondSolNum
     ;call getSolutions
     ret
 
@@ -31,26 +31,32 @@ solveMatrix:
 ;;hl = b * c
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 getMultiplier:
-    ;push af
+   ; push af
     ld h,d
     ld e,b
     call div
     ld hl,multiplier  ;load multiplier address
-    ld a,c             ;load mutliple into a
+    ld a,c             ;load mutliple into a (should be stored in c)
     ld (hl),a           ;store at address
-    ;pop af
+   ; pop af
     ret 
 getSecondSolNum:
     ld hl,multiplier
     ld a,(hl)
+    exx
+    push hl         ;restore old hl, (xy)
+    exx 
+    pop hl
     ld b,a
-    ld c,h
+    ld c,l
     push hl         ;load current hl values into stack
     call slow_mult  ;hl now stores MX
-    ld a,l
+    ret             ;STOP
+
+    ld a,h
     ld b,a
     pop hl
-    ld a,l          ;move Y into a
+    ld a,h          ;move Y into a
     sub b           ;now a = Y-MX
     ld hl,numerator
     ld (hl),a       ;store in numerator     
