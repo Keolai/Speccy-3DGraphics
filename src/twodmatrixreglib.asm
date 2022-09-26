@@ -51,15 +51,13 @@ getSecondSolNum:
     ld c,l
     push hl         ;load current hl values into stack
     call slow_mult  ;hl now stores MX
-    ret             ;STOP
-
-    ld a,h
+    ld a,l
     ld b,a
     pop hl
-    ld a,h          ;move Y into a
+    ld a,l          ;move Y into a
     sub b           ;now a = Y-MX
     ld hl,numerator
-    ld (hl),a       ;store in numerator     
+    ld (hl),a       ;store in numerator    ;NEED to HANDLE NEGATIVES 
     ret
 
 numerator: db $00
