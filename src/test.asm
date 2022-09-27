@@ -11,9 +11,9 @@ start:
     ld c,$02
     ld d,$01
     ld e,$01
-    ld h,$03
-    ld l,$02
-    ; answers should both be 1
+    ld h,$05
+    ld l,$03
+    ; answers should both be 1 if hl = $32
     ; multiplier should be 2
     call loadMatrix
     call solveMatrix
