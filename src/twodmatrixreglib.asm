@@ -10,6 +10,7 @@ multiplier EQU $d000
 numerator EQU $d001
 denominator EQU $d002
 xTwo EQU $d003
+xOne EQU $d004
 
 loadMatrix:
     push af
@@ -28,7 +29,9 @@ solveMatrix:
     call getMultiplier
     call getSecondSolNum
     call getSecondSolDen
-    ;call getSolutions
+    call getSecondSol
+    ;call getFirstSolNum
+    ;call getFirstSol
     ret
 
 ;;bc = hl/e
@@ -92,11 +95,43 @@ getSecondSol:
     ld l,a
     call div
     ld hl,xTwo
+    ld a,c
+    ld (hl),a
+    ret
+;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
+;hl = b * c
+getFirstSolNum:
+    exx
+    push bc
+    exx
+    pop bc      ;a2 now loaded
+    ld b,a
+    call slow_mult
+    ld b,l      ;a2(x2) now loaded in b
+    exx
+    push hl
+    exx
+    pop hl
+    ld a,h
+    sub b
+    call c, negativeHandler
+    ld hl,numerator
+    ld (hl),a       ;store in numerator
+    ret
+    ;bc = hl/e
+getFirstSol:
+    exx
+    push bc
+    exx
+    pop bc
+    ld e,b
+    ld l,a
+    call div
+    ld hl,xOne
     ld a,b
     ld (hl),a
     ret
-    
 negativeHandler:
     xor $ff
-    inc a           ;weird, may need to change
+   ; inc a           ;weird, may need to change
     ret
