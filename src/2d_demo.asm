@@ -18,9 +18,6 @@ start:
     call translation
     call wait
     ld (hl),a
-    ;call scale
-    ;call wait
-    ;ld (hl),a
     jp loop
     ret
 translation:
@@ -28,8 +25,8 @@ translation:
     ld c,$00
     ld d,$00
     ld e,$01
-    ld h,10
-    ld l,0
+    ld h,5
+    ld l,1
     call matrix
     call place_square
     ret
@@ -45,7 +42,7 @@ scale:
     ret
 place_square:       ;; moves square accross screen     
     ld hl,xTwo
-    ld a,(hl)    ;load Y
+    ld a,(hl)    ;load Y ;;THIS IS NOT WORKING
     ld hl,SCREEN_COLOR
     ld bc,#20
     call y_cord_loop
