@@ -11,17 +11,12 @@ start:
     ld c,$02
     ld d,$01
     ld e,$01
-    ld h,$05
-    ld l,$03
-    ; answers should both be 1 if hl = $32
-    ; multiplier should be 2
+    ld h,30
+    ld l,20
+    ; answers should both be 1 if hl = $0302
+    ; multiplier should be 1
     call loadMatrix
     call solveMatrix
-    ;ld hl,$d008
-    ;ld a,(hl)
-    ;ld b,a
-    ;ld hl,$d009
-    ;ld a,(hl)
     jp loop
     ret
 

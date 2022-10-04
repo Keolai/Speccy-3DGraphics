@@ -30,22 +30,22 @@ solveMatrix:
     call getSecondSolNum
     call getSecondSolDen
     call getSecondSol
-    ;call getFirstSolNum
-    ;call getFirstSol
+    call getFirstSolNum
+    call getFirstSol
     ret
 
 ;;bc = hl/e
 ;;hl = b * c
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 getMultiplier:
-    ld h,d
+    ld l,d
     ld e,b
     call div
     ld hl,multiplier  ;load multiplier address
     ld a,c             ;load mutliple into a (should be stored in c)
     ld (hl),a           ;store at address
     ret 
-getSecondSolNum:        ;x2 numerator
+getSecondSolNum:        ;x2 numerator       NEED TO FIX
     ld hl,multiplier
     ld a,(hl)
     exx
@@ -53,7 +53,7 @@ getSecondSolNum:        ;x2 numerator
     exx 
     pop hl
     ld b,a
-    ld c,l
+    ld c,h
     push hl         ;load current hl values into stack
     call slow_mult  ;hl now stores MX
     ld a,l
@@ -72,7 +72,7 @@ getSecondSolDen:            ;x2 denominator
     push bc
     exx
     pop bc                  ;a2 now in b
-    ld c,a
+    ld b,a
     call slow_mult          ;hl now stores m*a2
     exx
     push de
@@ -92,6 +92,7 @@ getSecondSol:
     ld e,a
     ld hl,numerator
     ld a,(hl)
+    ret             ;stop     
     ld l,a
     call div
     ld hl,xTwo
@@ -124,14 +125,18 @@ getFirstSol:
     push bc
     exx
     pop bc
+    ld hl,numerator
+    ld a,(hl)
     ld e,b
     ld l,a
     call div
     ld hl,xOne
-    ld a,b
+    ld a,c
     ld (hl),a
     ret
 negativeHandler:
     xor $ff
-   ; inc a           ;weird, may need to change
+    cp $00
+    ret nz          ;if it is not 0 we are done
+    inc a           ;weird, may need to change
     ret

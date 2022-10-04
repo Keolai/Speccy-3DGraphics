@@ -25,9 +25,13 @@ SWloop2:
     
       
 wait:
+    push af
+    push bc
     ld a,$00
     ld b,$00
     ld c,$00
+    pop bc
+    pop af
 Wloop:
     inc a
     cp $ff
@@ -43,7 +47,7 @@ Wloop2:
     jp Wloop 
 Wloop3:                  ;very long
     ld a,c
-    cp $07               ;change this to manipulate wait time
+    cp $02               ;change this to manipulate wait time
     ret z
     ld c,a
     inc c
