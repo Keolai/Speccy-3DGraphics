@@ -138,5 +138,5 @@ negativeHandler:
     xor $ff
     cp $00
     ret nz          ;if it is not 0 we are done
-    inc a           ;weird, may need to change
+    inc a           ;weird, may need to change THIS IS STUPID 
     ret

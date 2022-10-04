@@ -9,8 +9,6 @@ SCREEN_COLOR EQU $5800
 start:  
     ld hl,$ff58
     ld sp,hl            ;THIS IS NEEDED !
-    ; answers should both be 1 if hl = $0302
-    ; multiplier should be 1
     ld hl,SCREEN_COLOR
     ld a,$00
     ld (hl),a
@@ -58,12 +56,6 @@ x_cord_loop:
     inc hl
     dec a
     jp x_cord_loop
-
-
-
-
-
-
 matrix:
     call loadMatrix
     call solveMatrix
