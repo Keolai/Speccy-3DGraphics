@@ -42,14 +42,16 @@ scale:
     ret
 place_square:       ;; moves square accross screen     
     ld hl,xTwo
-    ld a,(hl)    ;load Y ;;THIS IS NOT WORKING
+    ld a,(hl)    ;load Y 
+    and $1F
     ld hl,SCREEN_COLOR
-    ld bc,#20
+    ld bc,$20
     call y_cord_loop
     push hl
     ld hl,xOne
     ld a,(hl)
     pop hl
+    and $1F
     call x_cord_loop    ;hl now has correct address
     ld (hl),$00
     ret
