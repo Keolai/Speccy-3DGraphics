@@ -26,7 +26,7 @@ translation:
     ld d,$00
     ld e,$01
     ld h,5
-    ld l,1
+    ld l,5
     call matrix
     call place_square
     ret

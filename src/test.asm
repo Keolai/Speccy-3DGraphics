@@ -17,6 +17,8 @@ start:
     ; multiplier should be 1
     call loadMatrix
     call solveMatrix
+    ld hl,xTwo
+    ld a,(hl)
     jp loop
     ret
 

@@ -11,8 +11,12 @@ numerator EQU $d001
 denominator EQU $d002
 xTwo EQU $d003
 xOne EQU $d004
+A1 EQU $d005
+A2 EQU $d006
+A3 EQU $d007
+A4 EQU $d008
 
-loadMatrix:
+loadMatrix: ;;102 clock cycles for load into memory 71 for this
     push af
     push bc
     push de
@@ -92,12 +96,12 @@ getSecondSol:
     ld e,a
     ld hl,numerator
     ld a,(hl)
-    ret             ;stop     
+   ; ret             ;stop     
     ld l,a
     call div
     ld hl,xTwo
     ld a,c
-    ld (hl),a
+    ld (hl),a        ;;NOT FUCKING WORKING
     ret
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 ;hl = b * c
