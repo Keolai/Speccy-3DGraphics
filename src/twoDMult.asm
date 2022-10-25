@@ -53,11 +53,11 @@ solveMatrix:
     ld hl,NEG           ;;negative?
     ld a,(hl)
     cp $ff
-    jp loop
+    jp loop             ;;STOP
     jp z, sub_res
     jp nz, add_res
 done_first:
-    jp loop
+    jp loop             ;;STOP
     ld hl,S1
     ld (hl),a           ;; store away
     jp loop             ;;STOP
