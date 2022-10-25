@@ -11,61 +11,43 @@ start:
     ld sp,hl            ;THIS IS NEEDED !
     ld hl,SCREEN_COLOR
     ld a,$00
-    ;ld (hl),a
-   ; call wait
-    ld a,$38
-    ld (hl),a
-    call shear
-    call wait
-    ld (hl),a
+    //call start_block
+    //call wait
+    call rotate
+    //ld a,$38
+    //ld (hl),a
+    //call wait
+    //ld (hl),a
     jp loop
     ret
-
-
-translation:
-    ld b,$01
-    ld c,$00        ; shearing factor
-    ld d,$00
-    ld e,$01
-    ld h,5
-    ld l,5
-    call matrix
-    call place_square
-    ret
-shear:                  ; fix this 
-    ld b,$02
-    ld c,$01
-    ld d,$00
-    ld e,$02
-    ld h,2
-    ld l,0
-    call matrix
-    call place_square
-    ld hl,$24
-    call matrix
-    call place_square
-    ld hl,$60
-    call matrix
-    call place_square
-    ld hl,$64
-    call matrix
-    call place_square
-    ld hl,xTwo
+start_block:
+    ld hl,S1
+    ld a, #02
     ld a,(hl)
-    ld b,a
     inc hl
-    ld a,(hl)   ;;load xOne
-    jp loop
+    ld a,(hl)       ;;(2,2)
+    call place_square
     ret
+
+;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
+rotate:
+    ld bc,$01ff
+    ld de,$0101
+    ld hl,$20
+    call loadMatrix
+    call solveMatrix
+    call place_square
+    ret
+
 place_square:       ;; moves square accross screen     
-    ld hl,xTwo
+    ld hl,S2
     ld a,(hl)    ;load Y 
     and $1F
     ld hl,SCREEN_COLOR
     ld bc,$20
     call y_cord_loop
     push hl
-    ld hl,xOne
+    ld hl,S1
     ld a,(hl)
     pop hl
     and $1F
@@ -93,5 +75,6 @@ loop:
     jp loop
     ret
 
-    include twodmatrixreglib.asm
-    SAVESNA"demo.sna", start
+
+    include twoDMult.asm
+    SAVESNA"demo2.sna", start

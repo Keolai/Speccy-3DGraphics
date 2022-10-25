@@ -29,13 +29,19 @@ loadMatrix: ;;102 clock cycles for load into memory 71 for this
     ret
     
 
-solveMatrix:
+solveMatrix:        ; this is for debugging 
+    push bc
+    push de
+    push hl
     call getMultiplier
     call getSecondSolNum
     call getSecondSolDen
     call getSecondSol
     call getFirstSolNum
     call getFirstSol
+    pop hl
+    pop de
+    pop bc
     ret
 
 ;;bc = hl/e
