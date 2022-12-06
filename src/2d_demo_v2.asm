@@ -11,13 +11,13 @@ start:
     ld sp,hl            ;THIS IS NEEDED !
     ld hl,SCREEN_COLOR
     ld a,$00
-    //call start_block
-    //call wait
+  ;;  ld (hl),a
+    ;;call start_block
+    ;;call wait
     call rotate
-    //ld a,$38
-    //ld (hl),a
-    //call wait
-    //ld (hl),a
+    ;;ld a,$38
+    ;;call wait
+    ;;ld (hl),a
     jp loop
     ret
 start_block:
@@ -31,9 +31,30 @@ start_block:
 
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 rotate:
+    ; ld bc,$01ff
+    ; ld de,$0101
+    ; ld hl,$20
+    ; call loadMatrix
+    ; call solveMatrix
+    ; call place_square
+
     ld bc,$01ff
     ld de,$0101
-    ld hl,$20
+    ld hl,$0202       ;;0,6
+    call loadMatrix
+    call solveMatrix
+    call place_square
+
+    ld bc,$01ff
+    ld de,$0101
+    ld hl,$40
+    call loadMatrix
+    call solveMatrix
+    call place_square
+
+    ld bc,$01ff
+    ld de,$0101
+    ld hl,$42
     call loadMatrix
     call solveMatrix
     call place_square
@@ -73,7 +94,6 @@ matrix:
 loop:
     nop
     jp loop
-    ret
 
 
     include twoDMult.asm

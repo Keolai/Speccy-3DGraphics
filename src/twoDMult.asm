@@ -12,13 +12,17 @@ NEG EQU $d009
 X1 EQU $d00a
 X2 EQU $d00b
 
+
 ;; a1 = b, a2 = c, a3 = d, a4 = e h = x, l = y
 loadMatrix:
+    push bc ;;store bc temp
+    ld b,l
     ld a, h
     ld hl, Xm
     ld a,(hl)   ;x
     inc hl
-    ld a,l
+    ld a,b
+    pop bc  
     ld a,(hl)
     inc hl
     ld a, b
@@ -37,14 +41,18 @@ loadMatrix:
 ;;hl = b * c
 solveMatrix: 
     push bc
-    ld c,h
+    ld hl,Xm        ;;storing 0? NOT WORMING
+    ld a,(hl)
+    ld c,a
+    jp loop
     call slow_mult      ;; a1 * x
+    jp loop
     ld hl,X1
     ld (hl),l
     pop bc
     ld a,c
     call negative_handler
-    jp loop
+   ;; jp loop
     ld b,h
     call slow_mult      ;; a2 * y
     ld hl,X2
@@ -53,14 +61,14 @@ solveMatrix:
     ld hl,NEG           ;;negative?
     ld a,(hl)
     cp $ff
-    jp loop             ;;STOP
+    ;;jp loop             ;;STOP
     jp z, sub_res
     jp nz, add_res
 done_first:
-    jp loop             ;;STOP
+   ;; jp loop             ;;STOP
     ld hl,S1
     ld (hl),a           ;; store away
-    jp loop             ;;STOP
+   ;; jp loop             ;;STOP
 
     ld b,d
     ld hl,Xm
@@ -78,15 +86,16 @@ done_first:
     add a,l
     ld hl,S2
     ld (hl),a
+    ret
     
 negative_handler:
     push af
     and $80
     cp $80
-    jp z, set_neg
+    call z, set_neg
+    pop af
     xor $ff
     inc a
-    pop af
     ret
 
 set_neg:
